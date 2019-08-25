@@ -29,7 +29,7 @@ $ python check-bib.py bib-file-to-be-checked.bib
 $ python check-bib.py bib-file-to-be-checked.bib --refresh
 [...]
 ```
-![screenshot_check-bib](https://user-images.githubusercontent.com/8809455/63655797-0e8dc900-c78d-11e9-985b-b8b727657c95.png)
+![screenshot_check_bib](https://user-images.githubusercontent.com/8809455/63655910-274aae80-c78e-11e9-8b41-68097bee08dd.png)
 
 ## Sources for predatory journals and publishers used
 * https://predatoryjournals.com/journals/
