@@ -1,0 +1,31 @@
+# conda env update/create -n predatory -f environment.yml
+# Version: 2019-08-23
+name: predatory
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+### RUNTIME -------------------------------------------------------------------
+  - python=3.*
+  - requests
+  - scikit-learn
+  - tqdm
+  - lxml
+  - colorama
+### PIP -----------------------------------------------------------------------
+  - pip
+  - pip:
+    - pybtex
+### DEVELOPMENT ---------------------------------------------------------------
+  - pep8
+  - pylint
+  - pycodestyle
+  - autopep8
+  - rope
+  - chardet
+  - ipython
+### JUPYTER -------------------------------------------------------------------
+  - jupyter
+  - notebook
+# ### DEPLOY --------------------------------------------------------------------
+#   - pyinstaller  # c:conda-forge
