@@ -1,6 +1,9 @@
 # check-bib-for-predatory
 check-predatory - Double-check your bibliography (BibTeX, bib) for predatory publishers and journals
 
+## Why?
+In order to ensure that no arcticles from predatory journals or publishers are cited, the tool compares the well-known predatory journals and publishers with your bibliography (BibTeX file).
+
 ## Getting Started
 
 ### Dependencies
