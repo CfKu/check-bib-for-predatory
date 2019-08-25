@@ -30,5 +30,12 @@ $ python check-bib.py bib-file-to-be-checked.bib --refresh
 [...]
 ```
 
+## Sources for predatory journals and publishers used
+* https://predatoryjournals.com/journals/
+* https://beallslist.weebly.com/
+* https://beallslist.weebly.com/standalone-journals.html
+
+Feel free to extend it.
+
 ## License
 This project is licensed under the Beerware License - see the [LICENSE](LICENSE) file for details.
