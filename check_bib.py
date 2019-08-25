@@ -36,7 +36,7 @@ from pybtex.database.input import bibtex
 import colorama
 
 # LOCAL IMPORT
-from check_bib import print_title, print_colored_status, \
+from check_bib_helpers import print_title, print_colored_status, \
     print_report, get_cache_csv, get_cosine_sim_score
 
 # =============================================================================
