@@ -1,5 +1,5 @@
 # check-bib-for-predatory
-check-predatory - Double-check your bibliography (BibTeX, bib) for predatory publishers and journals
+Double-check your bibliography (BibTeX, bib) for predatory publishers and journals
 
 ## Why?
 In order to ensure that no articles from predatory journals or publishers are cited, the tool compares the well-known predatory journals and publishers with your bibliography (BibTeX file). The titles in your bib file are compared with the well-known titles of the predatory journals based on [cosine similarity score](https://en.wikipedia.org/wiki/Cosine_similarity). 
