@@ -51,6 +51,18 @@ PREDATORY_SOURCES = {
             r"./a/@href",
             ["journal", "journaltitle", "booktitle"]
         ),
+    r"https://predatoryjournals.com/hijacked/":
+        (
+            r"//td[not(@id) and not(@class)]",
+            r"./a/@href",
+            ["journal", "journaltitle", "booktitle"]
+        ),
+    r"https://predatoryjournals.com/publishers/":
+        (
+            r"//li[not(@id) and not(@class)]",
+            r"./a/@href",
+            ["publisher"]
+        ),  
     r"https://beallslist.weebly.com/":
         (
             r"//li[not(@id) and not(@class)]",

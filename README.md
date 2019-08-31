@@ -33,6 +33,8 @@ $ python check-bib.py bib-file-to-be-checked.bib --refresh
 
 ## Sources for predatory journals and publishers used
 * https://predatoryjournals.com/journals/
+* https://predatoryjournals.com/hijacked/
+* https://predatoryjournals.com/publishers/
 * https://beallslist.weebly.com/
 * https://beallslist.weebly.com/standalone-journals.html
 
