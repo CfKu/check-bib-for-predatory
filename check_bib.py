@@ -45,24 +45,27 @@ from check_bib_helpers import print_title, print_colored_status, \
 SIMILARITY_THRESHOLDS = (0.7, 0.75, 0.8)
 PREDATORY_SOURCES = {
     # {URL: (LXML-ETREE-ELEMENTS, ELEMENT-REGEX, [BIB-FIELDS,]}
+    # https://raw.github.com/stop-predatory-journals/stop-predatory-journals.github.io/master/_data/journals.csv
     r"https://predatoryjournals.com/journals/":
         (
             r"//li[not(@id) and not(@class)]",
             r"./a/@href",
             ["journal", "journaltitle", "booktitle"]
         ),
+    # https://raw.github.com/stop-predatory-journals/stop-predatory-journals.github.io/master/_data/hijacked.csv
     r"https://predatoryjournals.com/hijacked/":
         (
             r"//td[not(@id) and not(@class)]",
             r"./a/@href",
             ["journal", "journaltitle", "booktitle"]
         ),
+    # https://raw.github.com/stop-predatory-journals/stop-predatory-journals.github.io/master/_data/publishers.csv
     r"https://predatoryjournals.com/publishers/":
         (
             r"//li[not(@id) and not(@class)]",
             r"./a/@href",
             ["publisher"]
-        ),  
+        ),
     r"https://beallslist.net/":
         (
             r"//li[not(@id) and not(@class)]",
@@ -72,6 +75,12 @@ PREDATORY_SOURCES = {
     r"https://beallslist.net/standalone-journals/":
         (
             r"//li[not(@id) and not(@class)]",
+            r"./a/@href",
+            ["journal", "journaltitle", "booktitle"]
+        ),
+    r"https://beallslist.net/hijacked-journals/":
+        (
+            r"//td[not(@id) and not(@class)]",
             r"./a/@href",
             ["journal", "journaltitle", "booktitle"]
         ),
