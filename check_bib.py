@@ -123,7 +123,8 @@ def crawl_predatory_sources():
 
 
 @click.command()
-@click.argument("bib_file", type=click.File("r"), required=True)
+@click.argument("bib_file", type=click.File("r", encoding="utf8"),
+                required=True)
 @click.option("--refresh", "refresh_index", default=False, is_flag=True,
               help="Refresh the local predatory CSV cache")
 def check_bibliography(bib_file, refresh_index=False):
