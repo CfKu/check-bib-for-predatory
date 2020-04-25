@@ -62,14 +62,14 @@ PREDATORY_SOURCES = {
             r"//li[not(@id) and not(@class)]",
             r"./a/@href",
             ["publisher"]
-        ),
-    r"https://beallslist.weebly.com/":
+        ),  
+    r"https://beallslist.net/":
         (
             r"//li[not(@id) and not(@class)]",
             r"./a/@href",
             ["publisher"]
         ),
-    r"https://beallslist.weebly.com/standalone-journals.html":
+    r"https://beallslist.net/standalone-journals/":
         (
             r"//li[not(@id) and not(@class)]",
             r"./a/@href",
