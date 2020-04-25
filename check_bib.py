@@ -23,7 +23,7 @@ from __future__ import (
 # =============================================================================
 # IMPORT
 # =============================================================================
-import argparse
+import click
 import requests
 import re
 import csv
@@ -31,7 +31,6 @@ import html
 import lxml
 import lxml.html
 import unicodedata
-import os
 from tqdm import tqdm
 from pybtex.database.input import bibtex
 import colorama
@@ -63,7 +62,7 @@ PREDATORY_SOURCES = {
             r"//li[not(@id) and not(@class)]",
             r"./a/@href",
             ["publisher"]
-        ),  
+        ),
     r"https://beallslist.weebly.com/":
         (
             r"//li[not(@id) and not(@class)]",
@@ -123,7 +122,20 @@ def crawl_predatory_sources():
     print()
 
 
-def check_bibliography(bib_file):
+@click.command()
+@click.argument("bib_file", type=click.File("r"), required=True)
+@click.option("--refresh", "refresh_index", default=False, is_flag=True,
+              help="Refresh the local predatory CSV cache")
+def check_bibliography(bib_file, refresh_index=False):
+    """
+    Double-check bibliography (BibTeX, bib => BIB_FILE) for predatory publishers and journals
+    """
+    print_title("Double-check bibliography (BibTeX, bib) for predatory "
+                "publishers and journals", "CfK", "~", 120)
+    print()
+    if refresh_index:
+        crawl_predatory_sources()
+    # -------------------------------------------------------------- PROCESSING
     print_colored_status(
         "Read predatory journals and publishers from local CSV cache", 1)
     # 1: create index of predatory journals / publishers
@@ -191,28 +203,5 @@ def check_bibliography(bib_file):
     print_report(report, SIMILARITY_THRESHOLDS)
 
 
-def main():
-    # ---------------------------------------------------------- PRE PROCESSING
-    # define cli options
-    cli_parser = argparse.ArgumentParser()
-    cli_parser.add_argument("bib_file", type=argparse.FileType("r"),
-                            help=("BibTeX file to be double-checked"))
-    cli_parser.add_argument("--refresh", action="store_true", default=False,
-                            help=("Refresh the local predatory CSV cache"))
-    # parse cli options
-    cli_args = cli_parser.parse_args()
-
-    # -------------------------------------------------------------- PROCESSING
-    print_title("Double-check bibliography (BibTeX, bib) for predatory "
-                "publishers and journals", "CfK", "~", 120)
-    print()
-
-    # crawl given sources (if required)
-    if cli_args.refresh:
-        crawl_predatory_sources()
-    # check bibliography
-    check_bibliography(cli_args.bib_file)
-
-
 if __name__ == '__main__':
-    main()
+    check_bibliography()
