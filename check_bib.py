@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright © by Christof Küstner
+# Minor improvements by Raphael Boomgaarden
 # ----------------------------------------------------------------------------
 # "THE BEER-WARE LICENSE"
 # wrote this file. As long as you retain this notice
@@ -22,7 +23,7 @@ from __future__ import (
 # =============================================================================
 # IMPORT
 # =============================================================================
-import argparse
+import click
 import requests
 import re
 import csv
@@ -30,7 +31,6 @@ import html
 import lxml
 import lxml.html
 import unicodedata
-import os
 from tqdm import tqdm
 from pybtex.database.input import bibtex
 import colorama
@@ -91,7 +91,7 @@ def crawl_predatory_sources():
         "Crawl and cache predatory journals and publishers from given URLs", 1)
     for source_url, (source_pj_element, source_pj_url, _) in PREDATORY_SOURCES.items():
         cache_csv_filename = get_cache_csv(source_url)
-        with open(cache_csv_filename, mode="w") as cache_file:
+        with open(cache_csv_filename, mode="w", encoding="utf8", newline="") as cache_file:
             # prepare cache CSV
             cache_writer = csv.writer(
                 cache_file, delimiter=",", quotechar='"',
@@ -122,7 +122,21 @@ def crawl_predatory_sources():
     print()
 
 
-def check_bibliography(bib_file):
+@click.command()
+@click.argument("bib_file", type=click.File("r", encoding="utf8"),
+                required=True)
+@click.option("--refresh", "refresh_index", default=False, is_flag=True,
+              help="Refresh the local predatory CSV cache")
+def check_bibliography(bib_file, refresh_index=False):
+    """
+    Double-check bibliography (BibTeX, bib => BIB_FILE) for predatory publishers and journals
+    """
+    print_title("Double-check bibliography (BibTeX, bib) for predatory "
+                "publishers and journals", "CfK", "~", 120)
+    print()
+    if refresh_index:
+        crawl_predatory_sources()
+    # -------------------------------------------------------------- PROCESSING
     print_colored_status(
         "Read predatory journals and publishers from local CSV cache", 1)
     # 1: create index of predatory journals / publishers
@@ -130,7 +144,7 @@ def check_bibliography(bib_file):
     for source_url, (_, _, compare_fields) in PREDATORY_SOURCES.items():
         cache_csv_filename = get_cache_csv(source_url)
 
-        with open(cache_csv_filename, mode="r") as cache_file:
+        with open(cache_csv_filename, mode="r", encoding="utf8") as cache_file:
             cache_reader = csv.reader(cache_file,
                                       delimiter=",", quotechar='"')
             # create indexes including compare_fields (names)
@@ -190,28 +204,5 @@ def check_bibliography(bib_file):
     print_report(report, SIMILARITY_THRESHOLDS)
 
 
-def main():
-    # ---------------------------------------------------------- PRE PROCESSING
-    # define cli options
-    cli_parser = argparse.ArgumentParser()
-    cli_parser.add_argument("bib_file", type=argparse.FileType("r"),
-                            help=("BibTeX file to be double-checked"))
-    cli_parser.add_argument("--refresh", action="store_true", default=False,
-                            help=("Refresh the local predatory CSV cache"))
-    # parse cli options
-    cli_args = cli_parser.parse_args()
-
-    # -------------------------------------------------------------- PROCESSING
-    print_title("Double-check bibliography (BibTeX, bib) for predatory "
-                "publishers and journals", "CfK", "~", 120)
-    print()
-
-    # crawl given sources (if required)
-    if cli_args.refresh:
-        crawl_predatory_sources()
-    # check bibliography
-    check_bibliography(cli_args.bib_file)
-
-
 if __name__ == '__main__':
-    main()
+    check_bibliography()
