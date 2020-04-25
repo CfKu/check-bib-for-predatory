@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright © by Christof Küstner
+# Minor improvements by Raphael Boomgaarden
 # ----------------------------------------------------------------------------
 # "THE BEER-WARE LICENSE"
 # wrote this file. As long as you retain this notice
@@ -91,7 +92,7 @@ def crawl_predatory_sources():
         "Crawl and cache predatory journals and publishers from given URLs", 1)
     for source_url, (source_pj_element, source_pj_url, _) in PREDATORY_SOURCES.items():
         cache_csv_filename = get_cache_csv(source_url)
-        with open(cache_csv_filename, mode="w") as cache_file:
+        with open(cache_csv_filename, mode="w", encoding="utf8", newline="") as cache_file:
             # prepare cache CSV
             cache_writer = csv.writer(
                 cache_file, delimiter=",", quotechar='"',
@@ -130,7 +131,7 @@ def check_bibliography(bib_file):
     for source_url, (_, _, compare_fields) in PREDATORY_SOURCES.items():
         cache_csv_filename = get_cache_csv(source_url)
 
-        with open(cache_csv_filename, mode="r") as cache_file:
+        with open(cache_csv_filename, mode="r", encoding="utf8") as cache_file:
             cache_reader = csv.reader(cache_file,
                                       delimiter=",", quotechar='"')
             # create indexes including compare_fields (names)
