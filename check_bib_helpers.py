@@ -87,7 +87,7 @@ def get_jaccard_sim_score(str1, str2):
 
 def get_vectors(*strs):
     text = [t for t in strs]
-    vectorizer = CountVectorizer(text)
+    vectorizer = CountVectorizer()
     vectorizer.fit(text)
     return vectorizer.transform(text).toarray()
 
