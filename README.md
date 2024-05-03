@@ -32,16 +32,18 @@ $ python check-bib.py bib-file-to-be-checked.bib --refresh
 ![screenshot_check_bib](https://user-images.githubusercontent.com/8809455/63655910-274aae80-c78e-11e9-8b41-68097bee08dd.png)
 
 ## Sources for predatory journals and publishers used
-* https://predatoryjournals.com/journals/
-* https://predatoryjournals.com/hijacked/
-* https://predatoryjournals.com/publishers/
-* https://beallslist.weebly.com/
-* https://beallslist.weebly.com/standalone-journals.html
+
+* https://beallslist.net/
+* https://beallslist.net/standalone-journals/
 
 Planned enhancements:
 * CSV files in https://github.com/stop-predatory-journals/stop-predatory-journals.github.io/tree/master/_data (instead of crawling)
 
 Feel free to extend it.
+
+## Disclaimer
+
+The used sources might not be complete. So in case you use this tool, make sure to use an up to date predatory journal repository.
 
 ## License
 This project is licensed under the terms of the MIT license - see the [LICENSE](LICENSE) file for details.
