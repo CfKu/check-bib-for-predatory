@@ -36,7 +36,7 @@ $ python check-bib.py bib-file-to-be-checked.bib --refresh
 * https://beallslist.net/
 * https://beallslist.net/standalone-journals/
 
-Planned enhancements:
+Possible enhancements:
 * CSV files in https://github.com/stop-predatory-journals/stop-predatory-journals.github.io/tree/master/_data (instead of crawling)
 
 Feel free to extend it.
