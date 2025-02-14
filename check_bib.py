@@ -27,13 +27,11 @@ import click
 import requests
 import re
 import csv
-import html
 import lxml
 import lxml.html
 import unicodedata
 from tqdm import tqdm
 from pybtex.database.input import bibtex
-import colorama
 
 # LOCAL IMPORT
 from check_bib_helpers import print_title, print_colored_status, \

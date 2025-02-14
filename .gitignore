@@ -1,5 +1,6 @@
 .vscode/
 .micromamba/
+.venv/
 __pycache__/
 *.bib
 screenshots/
