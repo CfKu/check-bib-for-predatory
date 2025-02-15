@@ -12,21 +12,19 @@ In order to ensure that no articles from predatory journals or publishers are ci
 
 ### Requirements
 
-* Install 'predatory' environment from [environment.yml](environment.yml)
+* Install venv from [pyproject.toml](pyproject.toml)
 ```bash
-# Install 'predatory' environment from environment.yml 
-$ conda env create -n predatory -f environment.yml
+# Install venv from pyproject.toml
+$ uv sync
 ```
 
 ### Minimal example
 ```bash
-# Activate 'predatory' environment
-$ conda activate predatory
-$ python check-bib.py bib-file-to-be-checked.bib
+$ uv run check-bib.py bib-file-to-be-checked.bib
 [...]
 
 # Refresh the local predatory journal cache before checking (! local cache will be overwritten)
-$ python check-bib.py bib-file-to-be-checked.bib --refresh
+$ uv run check-bib.py bib-file-to-be-checked.bib --refresh
 [...]
 ```
 ![screenshot_check_bib](https://user-images.githubusercontent.com/8809455/63655910-274aae80-c78e-11e9-8b41-68097bee08dd.png)
