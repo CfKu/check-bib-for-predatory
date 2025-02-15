@@ -1,0 +1,17 @@
+[project]
+name = "check-bib-for-predatory"
+version = "1.0.0"
+description = "Double-check bibliography (BibTeX, bib) for predatory publishers and journals"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "requests",
+    "scikit-learn",
+    "tqdm",
+    "lxml",
+    "colorama",
+    "click",
+    "pybtex",
+    "chardet",
+    "setuptools"
+]
