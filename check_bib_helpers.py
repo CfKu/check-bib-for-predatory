@@ -131,14 +131,17 @@ def print_report(report, thresholds):
                 )
             )
             # print match
-            for similarity_score, pj_name, pj_url in sorted(pj_matches, reverse=True):
+            for similarity_score, pj_name, pj_url, source_name in sorted(
+                pj_matches, reverse=True
+            ):
                 print(
-                    "   {}{}{:.2f}{} | {} >> URL:{}".format(
+                    "   {}{}{:.2f}{} | {} >> [{}] URL:{}".format(
                         " " * (15 - 4),
                         score_color(similarity_score, thresholds),
                         similarity_score,
                         colorama.Style.RESET_ALL,
                         highlight_similarity(bib_entry, pj_name.ljust(100, " ")),
+                        source_name,
                         pj_url,
                     )
                 )

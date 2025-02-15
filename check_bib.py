@@ -56,7 +56,7 @@ PREDATORY_SOURCES = {
         ["journal", "journaltitle", "booktitle"],
     ),
     # https://raw.github.com/stop-predatory-journals/stop-predatory-journals.github.io/master/_data/hijacked.csv
-    r"https://predatoryjournals.com/hijacked/": (
+    r"https://web.archive.org/web/20200701025650/https://predatoryjournals.com/hijacked/": (
         r"//td[not(@id) and not(@class)]",
         r"./a/@href",
         ["journal", "journaltitle", "booktitle"],
@@ -115,15 +115,15 @@ def crawl_predatory_sources():
                 html_tree = lxml.html.fromstring(r.content)
                 pj_elements = html_tree.xpath(source_pj_element)
                 for pj_element in tqdm(pj_elements, desc=tqdm_desc, unit=""):
-                    # element_text = lxml.etree.tostring(
-                    #    element).decode().strip()
                     pj_urls = pj_element.xpath(source_pj_url)
                     if pj_urls and pj_urls[0].startswith("http"):
                         pj_name = unicodedata.normalize(
                             "NFKD", pj_element.text_content()
                         )
                         pj_url = pj_urls[0]
-                        cache_row = [pj_name, pj_url]
+                        # Extract full path for source name
+                        source_path = "/".join(source_url.split("//")[1].split("/"))
+                        cache_row = [pj_name, pj_url, source_path]
                         # add pj to csv
                         pj_counter += 1
                         cache_writer.writerow(cache_row)
@@ -139,7 +139,7 @@ def process_bib_entry(idx_pj, bib_entries, bib_key):
     bib_fields = bib_entries[bib_key].fields.keys()
 
     # compare required fields with predatory journals/publishers in index
-    for _, (pj_name, pj_url, compare_fields) in idx_pj.items():
+    for _, (pj_name, pj_url, source_name, compare_fields) in idx_pj.items():
         for bib_field in bib_fields:
             # check if field needs to be double-checked
             if bib_field.lower() not in compare_fields:
@@ -162,8 +162,10 @@ def process_bib_entry(idx_pj, bib_entries, bib_key):
                 # prepare report dict (if required)
                 if bib_field not in report_entry:
                     report_entry[bib_field] = (bib_entry, [])
-                # add new match
-                report_entry[bib_field][1].append([similarity_score, pj_name, pj_url])
+                # add new match with source
+                report_entry[bib_field][1].append(
+                    [similarity_score, pj_name, pj_url, source_name]
+                )
 
     return bib_key, report_entry if report_entry else None
 
@@ -204,8 +206,14 @@ def check_bibliography(bib_file, refresh_index=False):
             # create indexes including compare_fields (names)
             # to be double-checked
             for row in cache_reader:
-                pj_name, pj_url = row
-                idx_pj[pj_name.lower()] = [pj_name, pj_url, compare_fields]
+                # Handle both old (2 columns) and new (3 columns) format
+                if len(row) == 2:
+                    pj_name, pj_url = row
+                    # Extract full path for source name
+                    source_path = "/".join(source_url.split("//")[1].split("/"))
+                else:
+                    pj_name, pj_url, source_path = row
+                idx_pj[pj_name.lower()] = [pj_name, pj_url, source_path, compare_fields]
     print(
         "   > Added {} unique predatory journals/publishers to index.".format(
             len(idx_pj)
